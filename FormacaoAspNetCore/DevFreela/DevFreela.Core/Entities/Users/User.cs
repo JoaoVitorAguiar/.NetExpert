@@ -2,7 +2,7 @@
 
 namespace DevFreela.Core.Entities.Users;
 
-class User : BaseEntity
+public class User : BaseEntity
 {
     public User(string fisrtName, string lastName, string email, DateTime birthDate)
     {
