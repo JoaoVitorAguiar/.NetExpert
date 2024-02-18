@@ -22,9 +22,15 @@ public class DevFreelaDbContext
             new Skill("ASP.NET Core"),   
             new Skill("SQL"),   
         ];
+        ProjectComment = [
+            new ProjectComment("Comentario 1#", 1, 1),
+            new ProjectComment("Comentario 2", 1, 1),
+            new ProjectComment("Comentario 3", 1, 1),
+        ];
     }
 
     public List<Project> Projects { get; private set; }
     public List<User> Users { get; private set; }
     public List<Skill> Skills { get; private set; }
+    public List <ProjectComment> ProjectComment { get; private set; }
 }

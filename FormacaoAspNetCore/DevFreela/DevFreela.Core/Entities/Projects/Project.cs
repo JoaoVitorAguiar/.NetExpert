@@ -34,4 +34,39 @@ public class Project: BaseEntity
     public ProjectStatusEnum Status { get; private set; }
 
     public List<ProjectComment> Comments { get; private set; }
+
+
+    public void Cancel() 
+    {
+        if(Status == ProjectStatusEnum.InProgress)
+        {
+            Status = ProjectStatusEnum.Cancelled;
+        }
+    }
+
+    public void Finish()
+    {
+        if (Status == ProjectStatusEnum.InProgress)
+        {
+            Status = ProjectStatusEnum.Finished;
+            FinishedAt = DateTime.Now;
+        }
+    }
+    public void Start()
+    {
+        if (Status == ProjectStatusEnum.Created)
+        {
+            Status = ProjectStatusEnum.InProgress;
+            FinishedAt = DateTime.Now;
+        }
+    }
+
+    public void Update(string title,  string description, decimal totalCost)
+    {
+        Title = title;
+        Description = description;
+        TotalCost = totalCost;
+
+    }
+
 }

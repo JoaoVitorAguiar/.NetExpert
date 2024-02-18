@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DevFreela.Core\DevFreela.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Persistense\Repositories\" />
+    <ProjectReference Include="..\DevFreela.Infrastructure\DevFreela.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

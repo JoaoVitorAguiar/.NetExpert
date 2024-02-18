@@ -14,7 +14,7 @@ public class UserController : ControllerBase
         return Ok();
     }
 
-    //api/user
+    // api/user
     [HttpPost]
     public IActionResult Register(
         [FromBody] CreateUserModel createUserModel)
