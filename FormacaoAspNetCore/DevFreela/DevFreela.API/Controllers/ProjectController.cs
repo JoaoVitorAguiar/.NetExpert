@@ -1,4 +1,6 @@
 ﻿using DevFreela.API.Models;
+using DevFreela.Application.InputModel;
+using DevFreela.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Models;
@@ -7,48 +9,64 @@ namespace DevFreela.API.Models;
 [Route("api/projects")]
 public class ProjectController : ControllerBase
 {
+    private readonly IProjectService _projectService;
+    public ProjectController(IProjectService projectService)
+    {
+        _projectService = projectService;
+    }
+
     // api/projetcs?query=net core
     [HttpGet]
     public IActionResult Get(string query)
     {
-        return Ok();
+        var projects = _projectService.GetAll(query);
+        return Ok(projects);
     }
 
     // api/projects/3
     [HttpGet("{id:int}")]
     public IActionResult GetById([FromRoute] int id)
     {
-        // NotFound();
-        return Ok(id);
+        var project = _projectService.GetById(id);
+        if(project == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(project);
     }
 
     [HttpPost]
     public IActionResult Post(
-        [FromBody] CreateProjectModel createProjectModel)
+        [FromBody] NewProjectInputModel inputModel)
     {
-        if(createProjectModel.Title.Length > 50)
+        if(inputModel.Title.Length > 50)
         {
             return BadRequest();
         }
-        return CreatedAtAction(nameof(GetById), new {id = createProjectModel.Id}, createProjectModel); // status 201
+
+        var id = _projectService.Create(inputModel);
+        return CreatedAtAction(nameof(GetById), new { id }, inputModel); // status 201
     }
 
     // api/project/2
     [HttpPut("{id:int}")]
     public IActionResult Put(
         [FromRoute] int id,
-        [FromBody] UpdateProjectModel updateProjectModel)
+        [FromBody] UpdateProjectInputModel inputModel)
     {
-        if(updateProjectModel.Description.Length > 200) 
+        if(inputModel.Description.Length > 200) 
         {
             return BadRequest();
         }
+        _projectService.Update(inputModel);
         return NoContent();
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
+        _projectService.Delete(id);
         return NoContent();
     }
 

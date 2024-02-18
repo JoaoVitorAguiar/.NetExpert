@@ -27,14 +27,15 @@ public class ProjectService : IProjectService
 
     public void Delete(int id)
     {
-        var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
-        project.Cancel();
+        var project = _dbContext.Projects.FirstOrDefault(p => p.Id == id);
+        project?.Cancel();
+
     }
 
     public void Finish(int id)
     {
-        var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
-        project.Finish();
+        var project = _dbContext.Projects.FirstOrDefault(p => p.Id == id);
+        project?.Finish();
     }
 
     public List<ProjectViewModel> GetAll(string query)
@@ -46,9 +47,10 @@ public class ProjectService : IProjectService
         return projectsViewModel;
     }
 
-    public ProjectDetailsViewModel GetById(int id)
+    public ProjectDetailsViewModel? GetById(int id)
     {
-        var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
+        var project = _dbContext.Projects.FirstOrDefault(p => p.Id == id);
+        if (project == null) return null;
         return new ProjectDetailsViewModel(
             project.Id, 
             project.Title, 
@@ -60,13 +62,13 @@ public class ProjectService : IProjectService
 
     public void Start(int id)
     {
-        var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
-        project.Start();
+        var project = _dbContext.Projects.FirstOrDefault(p => p.Id == id);
+        project?.Start();
     }
 
     public void Update(UpdateProjectInputModel inputModel)
     {
-        var project = _dbContext.Projects.SingleOrDefault(p => p.Id == inputModel.Id);
-        project.Update(inputModel.Title, inputModel.Description, inputModel.TotalCost);
+        var project = _dbContext.Projects.FirstOrDefault(p => p.Id == inputModel.Id);
+        project?.Update(inputModel.Title, inputModel.Description, inputModel.TotalCost);
     }
 }
