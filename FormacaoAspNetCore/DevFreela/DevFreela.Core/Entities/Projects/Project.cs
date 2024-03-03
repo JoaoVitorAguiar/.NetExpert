@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevFreela.Core.Entities.Users;
 using DevFreela.Core.Enums;
 
 namespace DevFreela.Core.Entities.Projects;
@@ -32,6 +33,11 @@ public class Project: BaseEntity
     public DateTime? FinishedAt { get; private set; }
 
     public ProjectStatusEnum Status { get; private set; }
+
+
+    // Navigate Props
+    public User Client {  get; private set; }
+    public User Freelancer {  get; private set; }
 
     public List<ProjectComment> Comments { get; private set; }
 

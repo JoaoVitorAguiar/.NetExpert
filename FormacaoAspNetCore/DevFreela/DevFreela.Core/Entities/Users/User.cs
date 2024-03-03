@@ -4,12 +4,13 @@ namespace DevFreela.Core.Entities.Users;
 
 public class User : BaseEntity
 {
-    public User(string fisrtName, string lastName, string email, DateTime birthDate)
+    public User(string fisrtName, string lastName, string email, string passwordHash, DateTime birthDate)
     {
         FisrtName = fisrtName;
         LastName = lastName;
         Email = email;
         BirthDate = birthDate;
+        PasswordHash = passwordHash;
 
         CreatedAt = DateTime.Now;
         Active = true;
@@ -29,4 +30,5 @@ public class User : BaseEntity
     public List<UserSkill> Skills { get; private set; }
     public List<Project> FreelanceProject { get; private set; }
     public List<Project> OwnedProject { get; private set; }
+    public List<ProjectComment> Comments { get; private set; }
 }
