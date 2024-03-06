@@ -21,6 +21,5 @@ public class DevFreelaDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-
     }
 }

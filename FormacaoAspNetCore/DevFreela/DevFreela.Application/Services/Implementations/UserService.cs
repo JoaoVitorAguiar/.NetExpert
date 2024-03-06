@@ -46,6 +46,7 @@ public class UserService : IUserServices
             inputModel.FisrtName,
             inputModel.LastName,
             inputModel.Email,
+            inputModel.PasswordHash,
             inputModel.BirthDate
             ));
         return 1;
