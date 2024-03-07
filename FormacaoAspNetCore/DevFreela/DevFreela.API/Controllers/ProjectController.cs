@@ -17,17 +17,17 @@ public class ProjectController : ControllerBase
 
     // api/projetcs?query=net core
     [HttpGet]
-    public IActionResult Get(string query)
+    public async Task<IActionResult> Get(string query)
     {
-        var projects = _projectService.GetAll(query);
+        var projects = await _projectService.GetAll(query);
         return Ok(projects);
     }
 
     // api/projects/3
     [HttpGet("{id:int}")]
-    public IActionResult GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var project = _projectService.GetById(id);
+        var project =  await _projectService.GetById(id);
         if(project == null)
         {
             return NotFound();
@@ -37,7 +37,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post(
+    public async Task<IActionResult> Post(
         [FromBody] NewProjectInputModel inputModel)
     {
         if(inputModel.Title.Length > 50)
@@ -45,7 +45,7 @@ public class ProjectController : ControllerBase
             return BadRequest();
         }
 
-        var id = _projectService.Create(inputModel);
+        var id = await _projectService.Create(inputModel);
         return CreatedAtAction(nameof(GetById), new { id }, inputModel); // status 201
     }
 
@@ -55,7 +55,7 @@ public class ProjectController : ControllerBase
         [FromRoute] int id,
         [FromBody] UpdateProjectInputModel inputModel)
     {
-        if(inputModel.Description.Length > 200) 
+        if (inputModel.Description.Length > 200)
         {
             return BadRequest();
         }

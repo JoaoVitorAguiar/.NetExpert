@@ -3,6 +3,7 @@ using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModel;
 using DevFreela.Core.Entities.Users;
 using DevFreela.Infrastructure.Persistense;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,38 +19,41 @@ public class UserService : IUserServices
     { 
         _dbContext = devFreelaDbContext;
     }
-    public UserViewModel GetById(int id)
+    public async Task<UserViewModel> GetById(int id)
     {
-        var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (user == null) return null;
+
         var userViewModel = new UserViewModel(
             user.Id, 
             user.FisrtName, 
             user.LastName, 
             user.Email);
+
         return userViewModel;
     }
 
-    public bool Login(UserLoginInputModel inputModel)
+    public async Task<bool> Login(UserLoginInputModel inputModel)
     {
-        var user = _dbContext.Users.FirstOrDefault(u => u.Email == inputModel.Email);
-        return user.PasswordHash == inputModel.PasswordHash ? false : true;
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == inputModel.Email);
+        if (user == null) return false;
+
+        return user.PasswordHash != inputModel.PasswordHash;
     }
 
-    public int Register(UserRegisterInputModel inputModel)
+    public async Task<int> Register(UserRegisterInputModel inputModel)
     {
-        var user = _dbContext.Users.FirstOrDefault(u => u.Email == inputModel.Email);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == inputModel.Email);
         if (user != null) {
             return 0;
         }
 
-        _dbContext.Users.Add(new User(
+        await _dbContext.Users.AddAsync(new User(
             inputModel.FisrtName,
             inputModel.LastName,
             inputModel.Email,
             inputModel.PasswordHash,
-            inputModel.BirthDate
-            ));
-        return 1;
-
+            inputModel.BirthDate));
+        return await _dbContext.SaveChangesAsync();
     }
 }

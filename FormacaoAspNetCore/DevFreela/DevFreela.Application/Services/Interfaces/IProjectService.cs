@@ -6,9 +6,9 @@ namespace DevFreela.Application.Services.Interfaces;
 public interface IProjectService
 {
     // Implementação dos Endpoints de ProjectController
-    List<ProjectViewModel> GetAll(string query);
-    ProjectDetailsViewModel GetById(int id);
-    int Create(NewProjectInputModel inputModel);
+    Task<List<ProjectViewModel>> GetAll(string query);
+    Task<ProjectDetailsViewModel> GetById(int id);
+    Task<int> Create(NewProjectInputModel inputModel);
     void Update(UpdateProjectInputModel inputModel);
     void CreateComment(CreateCommentInputModel inputModel);
     void Delete(int id);

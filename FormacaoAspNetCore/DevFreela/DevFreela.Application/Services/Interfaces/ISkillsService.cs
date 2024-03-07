@@ -10,5 +10,5 @@ namespace DevFreela.Application.Services.Interfaces;
 
 public interface ISkillsService
 {
-    List<SkillViewModel> GetAll();
+    Task<List<SkillViewModel>> GetAll();
 }

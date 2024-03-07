@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModel;
 using DevFreela.Infrastructure.Persistense;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,10 @@ public class SkillService : ISkillsService
         _dbContext = dbContext;
     }
 
-    public List<SkillViewModel> GetAll()
+    public async Task<List<SkillViewModel>> GetAll()
     {
         var skills = _dbContext.Skills;
-        var skillsViewModel = skills.Select(s => new SkillViewModel(s.Id, s.Description)).ToList();
+        var skillsViewModel = await skills.Select(s => new SkillViewModel(s.Id, s.Description)).ToListAsync();
         return skillsViewModel;
     }
 }
