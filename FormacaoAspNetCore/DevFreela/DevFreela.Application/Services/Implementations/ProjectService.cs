@@ -56,7 +56,10 @@ public class ProjectService : IProjectService
 
     public async Task<ProjectDetailsViewModel> GetById(int id)
     {
-        var project = await _dbContext.Projects.FirstOrDefaultAsync(p => p.Id == id);
+        var project = await _dbContext.Projects
+            .Include(p=>p.Client)
+            .Include(p=>p.Freelancer)
+            .SingleOrDefaultAsync(p => p.Id == id);
         if (project == null) return null;
 
         return new ProjectDetailsViewModel(
@@ -65,7 +68,12 @@ public class ProjectService : IProjectService
             project.Description, 
             project.TotalCost, 
             project.StartedAt, 
-            project.FinishedAt);
+            project.FinishedAt,
+            project.Client.FisrtName,
+            project.Client.LastName,
+            project.Freelancer.FisrtName,
+            project.Freelancer.LastName
+            );
     }
 
     public async void Start(int id)

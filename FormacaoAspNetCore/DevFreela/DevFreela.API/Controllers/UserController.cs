@@ -4,14 +4,14 @@ using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevFreela.API.Models;
+namespace DevFreela.API.Controllers;
 
 [ApiController]
 [Route("api/users")]
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userServices;
-    UserController (IUserServices userServices)
+    public UserController (IUserServices userServices)
     { 
         _userServices = userServices;
     }
@@ -25,7 +25,7 @@ public class UserController : ControllerBase
     }
 
     // api/user
-    [HttpPost]
+    [HttpPost("")]
     public async Task<IActionResult> Register(
         [FromBody] UserRegisterInputModel inputModel)
     {

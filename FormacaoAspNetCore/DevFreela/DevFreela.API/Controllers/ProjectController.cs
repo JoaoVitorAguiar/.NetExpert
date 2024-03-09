@@ -1,9 +1,10 @@
-﻿using DevFreela.API.Models;
+﻿
+using DevFreela.API.Models;
 using DevFreela.Application.InputModel;
 using DevFreela.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevFreela.API.Models;
+namespace DevFreela.API.Controllers;
 
 [ApiController]
 [Route("api/projects")]
