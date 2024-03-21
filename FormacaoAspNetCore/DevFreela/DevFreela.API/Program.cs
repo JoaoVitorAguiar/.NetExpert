@@ -1,4 +1,4 @@
-using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Commands.Project.CreateProject;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Infrastructure.Persistense;
