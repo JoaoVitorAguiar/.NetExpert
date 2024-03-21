@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace DevFreela.Application.InputModel;
  public class UserRegisterInputModel
 {
-    public string FisrtName { get; private set; }
-    public string LastName { get; private set; }
-    public string Email { get; private set; }
-    public string PasswordHash { get; private set; }
-    public DateTime BirthDate { get; private set; }
+    public string FisrtName { get;  set; }
+    public string LastName { get;  set; }
+    public string Email { get; set; }
+    public string PasswordHash { get; set; }
+    public DateTime BirthDate { get; set; }
 }
