@@ -1,4 +1,7 @@
-﻿using DevFreela.Infrastructure.Persistense;
+﻿using DevFreela.Core.Entities.Projects;
+using DevFreela.Core.Exceptions;
+using DevFreela.Core.Repositories;
+using DevFreela.Infrastructure.Persistense;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,18 +14,22 @@ namespace DevFreela.Application.Commands.Project.UpdateProject;
 
 public class UpdateProjectHandler : IRequestHandler<UpdateProjectCommand, Unit>
 {
-    private readonly DevFreelaDbContext _dbContext;
+    private readonly IProjectRepository _projectRepository;
 
-    public UpdateProjectHandler(DevFreelaDbContext dbContext)
+    public UpdateProjectHandler(IProjectRepository projectRepository)
     {
-        _dbContext = dbContext;
+        _projectRepository = projectRepository;
     }
 
     public async Task<Unit> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
     {
-        var project = await _dbContext.Projects.FirstOrDefaultAsync(p => p.Id == request.Id);
-        project?.Update(request.Title, request.Description, request.TotalCost);
-        await _dbContext.SaveChangesAsync();
+        var project = await _projectRepository.GetByIdAsync(request.Id);
+        if (project != null)
+        {
+            project.Update(request.Title, request.Description, request.TotalCost);
+            await _projectRepository.SaveChangesAsync(project);
+
+        }
         return Unit.Value;
     }
 }

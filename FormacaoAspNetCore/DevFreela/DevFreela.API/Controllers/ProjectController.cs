@@ -72,9 +72,9 @@ public class ProjectController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(DeleteProjectCommand command)
+    public async Task<IActionResult> Delete(int id)
     {
-
+        var command = new DeleteProjectCommand(id);
         await _mediator.Send(command);
         return NoContent();
     }

@@ -1,4 +1,5 @@
 ﻿using DevFreela.Application.ViewModel;
+using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistense;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,19 +13,16 @@ namespace DevFreela.Application.Queries.Projects.GetByIdProjects;
 
 public class GetByIdProjectHandler : IRequestHandler<GetByIdProjectQuery, ProjectDetailsViewModel>
 {
-    private readonly DevFreelaDbContext _dbContext;
-
-    public GetByIdProjectHandler(DevFreelaDbContext dbContext)
+    private readonly IProjectRepository _projectRepository;
+public GetByIdProjectHandler(IProjectRepository projectRepository)
     {
-        _dbContext = dbContext;
+        _projectRepository = projectRepository;
     }
 
     public async Task<ProjectDetailsViewModel> Handle(GetByIdProjectQuery request, CancellationToken cancellationToken)
     {
-        var project = await _dbContext.Projects
-    .Include(p => p.Client)
-    .Include(p => p.Freelancer)
-    .SingleOrDefaultAsync(p => p.Id == request.Id);
+        var project = await _projectRepository.GetByIdAsync(request.Id);
+
         if (project == null) return null;
 
         return new ProjectDetailsViewModel(

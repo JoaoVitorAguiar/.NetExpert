@@ -1,7 +1,9 @@
 using DevFreela.Application.Commands.Project.CreateProject;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
+using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistense;
+using DevFreela.Infrastructure.Persistense.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserServices, UserService>();
 builder.Services.AddScoped<ISkillsService, SkillService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
 // Ou seja, busca todas as classes que implementam o IRquest<> e assicia ao IRequestHandler<>
