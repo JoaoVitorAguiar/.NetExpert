@@ -1,7 +1,9 @@
 ﻿using DevFreela.API.Models;
+using DevFreela.Application.Commands.User.CreateUser;
 using DevFreela.Application.InputModel;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModel;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers;
@@ -11,9 +13,11 @@ namespace DevFreela.API.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userServices;
-    public UserController (IUserServices userServices)
-    { 
+    private readonly IMediator _mediator;
+    public UserController(IUserServices userServices, IMediator mediator)
+    {
         _userServices = userServices;
+        _mediator = mediator;
     }
 
     // api/users/1
@@ -27,18 +31,19 @@ public class UserController : ControllerBase
     // api/user
     [HttpPost("")]
     public async Task<IActionResult> Register(
-        [FromBody] UserRegisterInputModel inputModel)
+        [FromBody] CreateUserCommand command)
     {
-
-        var id = await _userServices.Register(inputModel);
-        var user = new UserViewModel(
-            id,
-            inputModel.FisrtName,
-            inputModel.LastName,
-            inputModel.Email
-            );
+        if(!ModelState.IsValid)
+        {
+            var messages = ModelState.
+                SelectMany(ms => ms.Value.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
+            return BadRequest(messages);
+        }
+        await _mediator.Send(command);
             
-        return CreatedAtAction(nameof(GetById), new { id }, user);
+        return Created();
     }
 
     // api/users/1/login
