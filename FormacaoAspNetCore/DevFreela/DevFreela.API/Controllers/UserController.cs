@@ -33,14 +33,6 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Register(
         [FromBody] CreateUserCommand command)
     {
-        if(!ModelState.IsValid)
-        {
-            var messages = ModelState.
-                SelectMany(ms => ms.Value.Errors)
-                .Select(e => e.ErrorMessage)
-                .ToList();
-            return BadRequest(messages);
-        }
         await _mediator.Send(command);
             
         return Created();
