@@ -53,6 +53,7 @@ public class UserService : IUserServices
             inputModel.LastName,
             inputModel.Email,
             inputModel.PasswordHash,
+            inputModel.Role,
             inputModel.BirthDate));
         return await _dbContext.SaveChangesAsync();
     }

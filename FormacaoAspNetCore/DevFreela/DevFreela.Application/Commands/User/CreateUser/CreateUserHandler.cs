@@ -30,6 +30,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Unit>
                 request.LastName,
                 request.Email,
                 request.PasswordHash,
+                request.Role,
                 request.BirthDate));
             await _dbContext.SaveChangesAsync();
         }
