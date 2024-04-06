@@ -9,6 +9,8 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using DevFreela.Core.Services;
+using DevFreela.Infrastructure.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,7 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserServices, UserService>();
 builder.Services.AddScoped<ISkillsService, SkillService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
 // Ou seja, busca todas as classes que implementam o IRquest<> e assicia ao IRequestHandler<>
