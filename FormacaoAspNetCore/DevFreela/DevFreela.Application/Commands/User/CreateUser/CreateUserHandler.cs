@@ -7,16 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevFreela.Core.Services;
 
 namespace DevFreela.Application.Commands.User.CreateUser;
 
 public class CreateUserHandler : IRequestHandler<CreateUserCommand, Unit>
 {
     private readonly DevFreelaDbContext _dbContext;
+    private readonly IAuthService _authService;
 
-    public CreateUserHandler(DevFreelaDbContext dbContext)
+    public CreateUserHandler(DevFreelaDbContext dbContext, IAuthService authService)
     {
         _dbContext = dbContext;
+        _authService = authService;
     }
 
     public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -25,11 +28,12 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Unit>
       
         if (user == null) 
         {
+            var passwordHash = _authService.ComputeSha256Hash(request.Password);
             await _dbContext.Users.AddAsync(new Core.Entities.Users.User(
                 request.FisrtName,
                 request.LastName,
                 request.Email,
-                request.PasswordHash,
+                passwordHash,
                 request.Role,
                 request.BirthDate));
             await _dbContext.SaveChangesAsync();

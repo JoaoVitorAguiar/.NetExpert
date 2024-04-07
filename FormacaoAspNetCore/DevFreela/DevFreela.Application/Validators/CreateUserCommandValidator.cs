@@ -17,7 +17,7 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .EmailAddress()
             .WithMessage("E-mail não válido.");
 
-        RuleFor(u => u.PasswordHash)
+        RuleFor(u => u.Password)
             .Must(ValidPassword)
             .WithMessage("Senha deve conter pelo menos 8 caracteres, um número, uma letra maiúscula, uma minúscula e um caractere especial.");
 
