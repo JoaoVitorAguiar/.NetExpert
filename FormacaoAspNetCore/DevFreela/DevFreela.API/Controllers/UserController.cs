@@ -1,5 +1,6 @@
 ﻿using DevFreela.API.Models;
 using DevFreela.Application.Commands.User.CreateUser;
+using DevFreela.Application.Commands.User.Login;
 using DevFreela.Application.InputModel;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModel;
@@ -39,10 +40,15 @@ public class UserController : ControllerBase
     }
 
     // api/users/1/login
-    [HttpPut("{id:int}/login")]
-    public async Task<IActionResult> Login(int id, UserLoginInputModel inputModel)
+    [HttpPut("/login")]
+    public async Task<IActionResult> Login(
+        [FromBody]LoginCommand command)
     {
-        var login = await _userServices.Login(inputModel);
-        return NoContent();
+        var loginUserViewModel = await _mediator.Send(command);   
+        if(loginUserViewModel == null) 
+        {
+            return BadRequest();
+        }
+        return Ok(loginUserViewModel);
     }
 }

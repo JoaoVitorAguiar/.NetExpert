@@ -25,6 +25,7 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserServices, UserService>();
 builder.Services.AddScoped<ISkillsService, SkillService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
