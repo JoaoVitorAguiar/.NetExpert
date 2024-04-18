@@ -12,11 +12,13 @@ using DevFreela.Application.Commands.Project.FnishProject;
 using DevFreela.Application.Commands.Project.UpdateProject;
 using DevFreela.Application.Queries.Projects.GetAllProjects;
 using DevFreela.Application.Queries.Projects.GetByIdProjects;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevFreela.API.Controllers;
 
 [ApiController]
 [Route("api/projects")]
+[Authorize]
 public class ProjectController : ControllerBase
 {
     private readonly IMediator _mediator;

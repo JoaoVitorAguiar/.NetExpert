@@ -5,12 +5,14 @@ using DevFreela.Application.InputModel;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModel;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers;
 
 [ApiController]
 [Route("api/users")]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userServices;
@@ -31,6 +33,7 @@ public class UserController : ControllerBase
 
     // api/user
     [HttpPost("")]
+    [AllowAnonymous]
     public async Task<IActionResult> Register(
         [FromBody] CreateUserCommand command)
     {
@@ -40,6 +43,7 @@ public class UserController : ControllerBase
     }
 
     // api/users/1/login
+    [AllowAnonymous]
     [HttpPut("/login")]
     public async Task<IActionResult> Login(
         [FromBody]LoginCommand command)
