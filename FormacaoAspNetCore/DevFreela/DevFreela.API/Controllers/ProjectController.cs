@@ -18,7 +18,6 @@ namespace DevFreela.API.Controllers;
 
 [ApiController]
 [Route("api/projects")]
-[Authorize]
 public class ProjectController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -30,7 +29,8 @@ public class ProjectController : ControllerBase
 
     // api/projetcs?query=net core
     [HttpGet]
-    public async Task<IActionResult> Get(string query)
+    [Authorize(Roles = "client, freelancer")]
+    public async Task<IActionResult> Get(string query = "")
     {
         var getAllProjectsQuery = new GetAllProjectsQuery(query);
         var projects = await _mediator.Send(getAllProjectsQuery);
@@ -39,6 +39,7 @@ public class ProjectController : ControllerBase
 
     // api/projects/3
     [HttpGet("{id:int}")]
+    [Authorize(Roles = "client, freelancer")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
         var getByIdQuery = new GetByIdProjectQuery(id);
@@ -47,6 +48,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "client")]
     public async Task<IActionResult> Post(
         [FromBody] CreateProjectCommand command)
     {
@@ -56,6 +58,7 @@ public class ProjectController : ControllerBase
 
     // api/project/2
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "client")]
     public async Task<IActionResult> Put(
         [FromRoute] int id,
         [FromBody] UpdateProjectCommand command)
@@ -68,6 +71,7 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "client")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -78,6 +82,7 @@ public class ProjectController : ControllerBase
 
     // api/projects/1/comment
     [HttpPost("{id:int}/comments")]
+    [Authorize(Roles = "client, freelancer")]
     public async Task<IActionResult> PostComments(
         int id,
         [FromBody] CreateCommentCommand command)
@@ -87,6 +92,7 @@ public class ProjectController : ControllerBase
     }
     // api/projects/1/start
     [HttpPost("{id:int}/start")]
+    [Authorize(Roles = "client")]
     public async Task<IActionResult> Start(int id)
     {
         var command = new StartProjectCommand(id);
@@ -96,6 +102,7 @@ public class ProjectController : ControllerBase
 
     // api/projects/1/finish
     [HttpPost("{id:int}/finish")]
+    [Authorize(Roles = "client")]
     public async Task<IActionResult> Finish(int id)
     {
         var command = new FinishProjectCommand(id);
