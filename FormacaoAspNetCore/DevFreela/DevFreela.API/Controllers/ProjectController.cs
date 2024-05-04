@@ -103,8 +103,9 @@ public class ProjectController : ControllerBase
     // api/projects/1/finish
     [HttpPost("{id:int}/finish")]
     [Authorize(Roles = "client")]
-    public async Task<IActionResult> Finish([FromBody] FinishProjectCommand command)
+    public async Task<IActionResult> Finish(int id, [FromBody] FinishProjectCommand command)
     {
+        command.Id = id;
         var result = await _mediator.Send(command);
         if(!result)
         {
