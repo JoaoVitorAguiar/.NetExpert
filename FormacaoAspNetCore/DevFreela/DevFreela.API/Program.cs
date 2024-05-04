@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using DevFreela.Infrastructure.Payments;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,7 @@ builder.Services.AddScoped<ISkillsService, SkillService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IPaymentService, IPaymentService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
 // Ou seja, busca todas as classes que implementam o IRquest<> e assicia ao IRequestHandler<>
