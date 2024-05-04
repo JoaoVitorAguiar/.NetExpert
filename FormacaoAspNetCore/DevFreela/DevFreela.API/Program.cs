@@ -31,6 +31,7 @@ builder.Services.AddScoped<ISkillsService, SkillService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPaymentService, IPaymentService>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
 // Ou seja, busca todas as classes que implementam o IRquest<> e assicia ao IRequestHandler<>

@@ -103,10 +103,13 @@ public class ProjectController : ControllerBase
     // api/projects/1/finish
     [HttpPost("{id:int}/finish")]
     [Authorize(Roles = "client")]
-    public async Task<IActionResult> Finish(int id)
+    public async Task<IActionResult> Finish([FromBody] FinishProjectCommand command)
     {
-        var command = new FinishProjectCommand(id);
-        await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+        if(!result)
+        {
+            return BadRequest("O pagamento não pôde ser processado.");
+        }
         return NoContent();
     }
 }

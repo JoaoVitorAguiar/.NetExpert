@@ -75,4 +75,11 @@ public class Project: BaseEntity
 
     }
 
+    public void SetPaymentPending()
+    {
+        Status = ProjectStatusEnum.PaymentPending;
+        FinishedAt = null;
+    }
+
+
 }
