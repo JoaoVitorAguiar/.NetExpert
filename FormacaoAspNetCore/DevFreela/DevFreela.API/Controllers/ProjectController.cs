@@ -71,8 +71,8 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
-    [Authorize(Roles = "client")]
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "client")]
     public async Task<IActionResult> Delete(int id)
     {
         var command = new DeleteProjectCommand(id);

@@ -8,23 +8,23 @@ namespace DevFreela.Payments.API.Controllers;
 [Route("api/payments")]
 public class PaymentsController : ControllerBase
 {
-    private readonly IPaymentService _servicePayment;
+    private readonly IPaymentService _paymentService;
 
-    public PaymentsController(IPaymentService servicePayment)
+    public PaymentsController(IPaymentService paymentService)
     {
-        _servicePayment = servicePayment;
+        _paymentService = paymentService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Post([FromBody] PaymentInfoInputModel paymentInfo)
-    {
-        var result = await _servicePayment.Process(paymentInfo);
 
+    [HttpPost]  
+    public async Task<IActionResult> Post([FromBody] PaymentInfoInputModel paymentInfoInputModel)
+    {
+        var result = await _paymentService.Process(paymentInfoInputModel);
         if(!result)
         {
-            BadRequest();
+            return BadRequest();
         }
-
+        Console.WriteLine("Pagamento efetuado");
         return NoContent();
     }
 }
