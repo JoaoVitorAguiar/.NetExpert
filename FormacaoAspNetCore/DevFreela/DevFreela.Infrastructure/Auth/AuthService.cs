@@ -59,7 +59,7 @@ public class AuthService : IAuthService
         var token = new JwtSecurityToken(
             issuer: issuer,
             audience: audience,
-            expires: DateTime.UtcNow.AddMinutes(7),
+            expires: DateTime.UtcNow.AddMinutes(60),
             signingCredentials: credentials,
             claims:claims);
 
