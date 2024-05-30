@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DevFreela.Application.ViewModel;
+﻿namespace DevFreela.Application.ViewModel;
 
 public class ProjectDetailsViewModel
 {
     public ProjectDetailsViewModel(
-        int id, 
-        string title, 
-        string description, 
-        decimal totalCost, 
-        DateTime? startedAt, 
-        DateTime? finishedAt, 
+        int id,
+        string title,
+        string description,
+        decimal totalCost,
+        DateTime? startedAt,
+        DateTime? finishedAt,
         string clientFirstName,
-        string clientLastName, 
-        string freelancerFirstName, 
+        string clientLastName,
+        string freelancerFirstName,
         string freelancerLastName)
     {
         Id = id;

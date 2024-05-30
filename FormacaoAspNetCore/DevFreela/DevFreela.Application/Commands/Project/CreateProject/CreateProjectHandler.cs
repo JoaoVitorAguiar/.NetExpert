@@ -1,13 +1,5 @@
-﻿using DevFreela.Core.Entities.Projects;
-using DevFreela.Core.Repositories;
-using DevFreela.Infrastructure.Persistense;
+﻿using DevFreela.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.Application.Commands.Project.CreateProject;
 

@@ -2,11 +2,6 @@
 using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.Application.Commands.User.Login;
 
@@ -25,9 +20,9 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginUserViewModel>
     {
         // Gerar hash de senha
         var passwordHash = _authService.ComputeSha256Hash(request.Password);
-        
+
         var user = await _userRepository.GetUserByEmailAndPasswordAsync(request.Email, passwordHash);
-        
+
         if (user == null) return null;
 
         var token = _authService.GenerateJwtToken(user.Email, user.Role);

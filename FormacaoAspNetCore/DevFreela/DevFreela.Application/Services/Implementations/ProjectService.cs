@@ -16,10 +16,10 @@ public class ProjectService : IProjectService
     }
     public async Task<int> Create(NewProjectInputModel inputModel)
     {
-        var project = new Project(inputModel.Title, inputModel.Description, inputModel.ClientId, inputModel.FreelancerId, inputModel.TotalCost) ;
+        var project = new Project(inputModel.Title, inputModel.Description, inputModel.ClientId, inputModel.FreelancerId, inputModel.TotalCost);
         await _dbContext.Projects.AddAsync(project);
         await _dbContext.SaveChangesAsync();
-        return project.Id; 
+        return project.Id;
     }
 
     public async void CreateComment(CreateCommentInputModel inputModel)
@@ -46,7 +46,7 @@ public class ProjectService : IProjectService
 
     public async Task<List<ProjectViewModel>> GetAll(string query)
     {
-        var projects =  _dbContext.Projects;
+        var projects = _dbContext.Projects;
         var projectsViewModel = await projects
             .Select(p => new ProjectViewModel(p.Id, p.Title, p.CreatedAt))
             .ToListAsync();
@@ -57,17 +57,17 @@ public class ProjectService : IProjectService
     public async Task<ProjectDetailsViewModel> GetById(int id)
     {
         var project = await _dbContext.Projects
-            .Include(p=>p.Client)
-            .Include(p=>p.Freelancer)
+            .Include(p => p.Client)
+            .Include(p => p.Freelancer)
             .SingleOrDefaultAsync(p => p.Id == id);
         if (project == null) return null;
 
         return new ProjectDetailsViewModel(
-            project.Id, 
-            project.Title, 
-            project.Description, 
-            project.TotalCost, 
-            project.StartedAt, 
+            project.Id,
+            project.Title,
+            project.Description,
+            project.TotalCost,
+            project.StartedAt,
             project.FinishedAt,
             project.Client.FisrtName,
             project.Client.LastName,

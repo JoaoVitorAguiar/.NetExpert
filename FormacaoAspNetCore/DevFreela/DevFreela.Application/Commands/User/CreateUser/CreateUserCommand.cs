@@ -1,13 +1,8 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.Application.Commands.User.CreateUser;
 
-public class CreateUserCommand: IRequest<Unit>
+public class CreateUserCommand : IRequest<Unit>
 {
     public string FisrtName { get; set; }
     public string LastName { get; set; }

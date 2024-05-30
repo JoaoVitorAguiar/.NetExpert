@@ -1,18 +1,14 @@
-﻿
-using DevFreela.API.Models;
+﻿using DevFreela.Application.Commands.Project.CreateComment;
 using DevFreela.Application.Commands.Project.CreateProject;
-using DevFreela.Application.Commands.Project.CreateComment;
 using DevFreela.Application.Commands.Project.DeleteProject;
-using DevFreela.Application.InputModel;
-using DevFreela.Application.Services.Interfaces;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using DevFreela.Application.Commands.Project.StartProject;
 using DevFreela.Application.Commands.Project.FnishProject;
+using DevFreela.Application.Commands.Project.StartProject;
 using DevFreela.Application.Commands.Project.UpdateProject;
 using DevFreela.Application.Queries.Projects.GetAllProjects;
 using DevFreela.Application.Queries.Projects.GetByIdProjects;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers;
 
@@ -22,7 +18,7 @@ public class ProjectController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ProjectController( IMediator mediator)
+    public ProjectController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -43,7 +39,7 @@ public class ProjectController : ControllerBase
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
         var getByIdQuery = new GetByIdProjectQuery(id);
-        var query = await _mediator.Send(getByIdQuery);   
+        var query = await _mediator.Send(getByIdQuery);
         return Ok(query);
     }
 
@@ -107,7 +103,7 @@ public class ProjectController : ControllerBase
     {
         command.Id = id;
         var result = await _mediator.Send(command);
-        if(!result)
+        if (!result)
         {
             return BadRequest("O pagamento não pôde ser processado.");
         }

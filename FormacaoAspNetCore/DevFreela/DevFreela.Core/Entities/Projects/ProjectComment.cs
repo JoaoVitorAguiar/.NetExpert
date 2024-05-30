@@ -2,7 +2,7 @@
 
 namespace DevFreela.Core.Entities.Projects;
 
-public class ProjectComment: BaseEntity
+public class ProjectComment : BaseEntity
 {
     public ProjectComment(string content, int projectId, int userId)
     {

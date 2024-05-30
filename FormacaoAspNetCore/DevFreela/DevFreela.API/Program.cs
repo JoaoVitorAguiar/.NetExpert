@@ -3,19 +3,20 @@ using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.Validators;
 using DevFreela.Core.Repositories;
-using DevFreela.Infrastructure.Persistense;
-using DevFreela.Infrastructure.Persistense.Repositories;
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 using DevFreela.Core.Services;
 using DevFreela.Infrastructure.Auth;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using DevFreela.Infrastructure.Messagebus;
 using DevFreela.Infrastructure.Payments;
+using DevFreela.Infrastructure.Persistense;
+using DevFreela.Infrastructure.Persistense.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<IMessageBusService, MessageBusService>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
 // Ou seja, busca todas as classes que implementam o IRquest<> e assicia ao IRequestHandler<>
@@ -87,12 +89,12 @@ builder.Services
       };
   });
 
-        
+
 
 
 
 builder.Services.AddDbContext<DevFreelaDbContext>(
-    options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

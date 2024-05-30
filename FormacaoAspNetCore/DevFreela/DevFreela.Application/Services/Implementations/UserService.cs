@@ -4,19 +4,14 @@ using DevFreela.Application.ViewModel;
 using DevFreela.Core.Entities.Users;
 using DevFreela.Infrastructure.Persistense;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.Application.Services.Implementations;
 
 public class UserService : IUserServices
 {
     private readonly DevFreelaDbContext _dbContext;
-    public UserService(DevFreelaDbContext devFreelaDbContext) 
-    { 
+    public UserService(DevFreelaDbContext devFreelaDbContext)
+    {
         _dbContext = devFreelaDbContext;
     }
     public async Task<UserViewModel> GetById(int id)
@@ -25,9 +20,9 @@ public class UserService : IUserServices
         if (user == null) return null;
 
         var userViewModel = new UserViewModel(
-            user.Id, 
-            user.FisrtName, 
-            user.LastName, 
+            user.Id,
+            user.FisrtName,
+            user.LastName,
             user.Email);
 
         return userViewModel;
@@ -44,7 +39,8 @@ public class UserService : IUserServices
     public async Task<int> Register(UserRegisterInputModel inputModel)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == inputModel.Email);
-        if (user != null) {
+        if (user != null)
+        {
             return 0;
         }
 

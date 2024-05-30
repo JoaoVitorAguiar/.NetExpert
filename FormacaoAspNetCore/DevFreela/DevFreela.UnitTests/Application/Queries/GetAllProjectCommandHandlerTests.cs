@@ -2,11 +2,6 @@
 using DevFreela.Core.Entities.Projects;
 using DevFreela.Core.Repositories;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.UnitTests.Application.Queries;
 
@@ -15,7 +10,7 @@ public class GetAllProjectCommandHandlerTests
     // Aplicando o padrão given_when_then
     // Dado que 3 projetos existem quando executado retorna 3 projects view model
     [Fact]
-    public  async Task ThreeProjectsExist_Executed_ReturnThreeProjectsViewModels()
+    public async Task ThreeProjectsExist_Executed_ReturnThreeProjectsViewModels()
     {
         // Arrange 
         var projects = new List<Project>
@@ -31,8 +26,8 @@ public class GetAllProjectCommandHandlerTests
 
         var getAllProjectQuery = new GetAllProjectsQuery("");
         var getAllProjectQueryHandler = new GetAllProjectHandler(projectRepositoryMock.Object);
-        
-        
+
+
         // Act
         var projectsViewModels = await getAllProjectQueryHandler.Handle(getAllProjectQuery, new CancellationToken());
 

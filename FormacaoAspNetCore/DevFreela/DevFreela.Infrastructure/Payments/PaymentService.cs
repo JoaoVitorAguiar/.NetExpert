@@ -1,13 +1,8 @@
 ﻿using DevFreela.Core.DTOs;
 using DevFreela.Core.Services;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace DevFreela.Infrastructure.Payments;
 

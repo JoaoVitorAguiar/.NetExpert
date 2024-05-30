@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevFreela.Core.Entities.Users;
+﻿using DevFreela.Core.Entities.Users;
 using DevFreela.Core.Enums;
 
 namespace DevFreela.Core.Entities.Projects;
 
-public class Project: BaseEntity
+public class Project : BaseEntity
 {
     public Project(string title, string description, int clientId, int freelancerId, decimal totalCost)
     {
@@ -36,15 +31,15 @@ public class Project: BaseEntity
 
 
     // Navigate Props
-    public User Client {  get; private set; }
-    public User Freelancer {  get; private set; }
+    public User Client { get; private set; }
+    public User Freelancer { get; private set; }
 
     public List<ProjectComment> Comments { get; private set; }
 
 
-    public void Cancel() 
+    public void Cancel()
     {
-        if(Status == ProjectStatusEnum.InProgress)
+        if (Status == ProjectStatusEnum.InProgress)
         {
             Status = ProjectStatusEnum.Cancelled;
         }
@@ -67,7 +62,7 @@ public class Project: BaseEntity
         }
     }
 
-    public void Update(string title,  string description, decimal totalCost)
+    public void Update(string title, string description, decimal totalCost)
     {
         Title = title;
         Description = description;

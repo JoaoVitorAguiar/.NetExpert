@@ -1,11 +1,4 @@
-﻿using DevFreela.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DevFreela.Application.ViewModel;
+﻿namespace DevFreela.Application.ViewModel;
 
 public class ProjectViewModel
 {

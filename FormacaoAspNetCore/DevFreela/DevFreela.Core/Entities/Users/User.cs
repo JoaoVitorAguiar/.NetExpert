@@ -23,7 +23,7 @@ public class User : BaseEntity
     public string FisrtName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }
-    public string PasswordHash{ get; private set; }
+    public string PasswordHash { get; private set; }
     public DateTime BirthDate { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public bool Active { get; private set; }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DevFreela.Core.Entities.Users;
 
-namespace DevFreela.Core.Entities.Users;
-
-public class UserSkill: BaseEntity
+public class UserSkill : BaseEntity
 {
     public UserSkill(int userId, int skillId)
     {

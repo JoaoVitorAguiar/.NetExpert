@@ -1,13 +1,7 @@
-﻿using DevFreela.Infrastructure.Persistense;
+﻿using DevFreela.Core.Services;
+using DevFreela.Infrastructure.Persistense;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using DevFreela.Core.Entities.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevFreela.Core.Services;
 
 namespace DevFreela.Application.Commands.User.CreateUser;
 
@@ -25,8 +19,8 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Unit>
     public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-      
-        if (user == null) 
+
+        if (user == null)
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
             await _dbContext.Users.AddAsync(new Core.Entities.Users.User(

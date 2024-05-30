@@ -1,9 +1,6 @@
-﻿using DevFreela.API.Models;
-using DevFreela.Application.Commands.User.CreateUser;
+﻿using DevFreela.Application.Commands.User.CreateUser;
 using DevFreela.Application.Commands.User.Login;
-using DevFreela.Application.InputModel;
 using DevFreela.Application.Services.Interfaces;
-using DevFreela.Application.ViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +35,7 @@ public class UserController : ControllerBase
         [FromBody] CreateUserCommand command)
     {
         await _mediator.Send(command);
-            
+
         return Created();
     }
 
@@ -46,10 +43,10 @@ public class UserController : ControllerBase
     [AllowAnonymous]
     [HttpPut("/login")]
     public async Task<IActionResult> Login(
-        [FromBody]LoginCommand command)
+        [FromBody] LoginCommand command)
     {
-        var loginUserViewModel = await _mediator.Send(command);   
-        if(loginUserViewModel == null) 
+        var loginUserViewModel = await _mediator.Send(command);
+        if (loginUserViewModel == null)
         {
             return BadRequest();
         }
