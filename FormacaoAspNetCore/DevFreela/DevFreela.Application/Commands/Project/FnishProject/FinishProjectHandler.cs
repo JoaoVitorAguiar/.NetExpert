@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DevFreela.Application.Commands.Project.FnishProject;
 
-public class FinishProjectHandler : IRequestHandler<FinishProjectCommand, bool>
+public class FinishProjectHandler : IRequestHandler<FinishProjectCommand, Unit>
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IPaymentService _paymentService;
@@ -17,23 +17,19 @@ public class FinishProjectHandler : IRequestHandler<FinishProjectCommand, bool>
     }
 
 
-    public async Task<bool> Handle(FinishProjectCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(FinishProjectCommand request, CancellationToken cancellationToken)
     {
         var project = await _projectRepository.GetByIdAsync(request.Id);
 
-        project.Finish();
-
         var paymentInfoDTO = new PaymentInfoDTO(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName);
-        var result = await _paymentService.ProcessPayment(paymentInfoDTO);
+        _paymentService.ProcessPayment(paymentInfoDTO);
 
-        if (!result)
-        {
-            project.SetPaymentPending();
-        }
+
+        project.SetPaymentPending();
 
         await _projectRepository.SaveChangesAsync(project);
 
-        return result;
+        return Unit.Value;
     }
 
 }

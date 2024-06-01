@@ -103,10 +103,6 @@ public class ProjectController : ControllerBase
     {
         command.Id = id;
         var result = await _mediator.Send(command);
-        if (!result)
-        {
-            return BadRequest("O pagamento não pôde ser processado.");
-        }
-        return NoContent();
+        return Accepted();
     }
 }

@@ -4,5 +4,5 @@ namespace DevFreela.Core.Services;
 
 public interface IPaymentService
 {
-    Task<bool> ProcessPayment(PaymentInfoDTO patmentInfoDTO);
+    void ProcessPayment(PaymentInfoDTO patmentInfoDTO);
 }

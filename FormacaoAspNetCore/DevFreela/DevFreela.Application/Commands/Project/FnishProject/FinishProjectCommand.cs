@@ -2,7 +2,7 @@
 
 namespace DevFreela.Application.Commands.Project.FnishProject;
 
-public class FinishProjectCommand : IRequest<bool>
+public class FinishProjectCommand : IRequest<Unit>
 {
     public int Id { get; set; }
     public string CreditCardNumber { get; set; }
