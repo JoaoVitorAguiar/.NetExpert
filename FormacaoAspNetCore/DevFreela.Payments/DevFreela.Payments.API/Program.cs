@@ -1,3 +1,4 @@
+using DevFreela.Payments.API.Consumers;
 using DevFreela.Payments.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddHostedService<ProcessPaymentConsumer>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
