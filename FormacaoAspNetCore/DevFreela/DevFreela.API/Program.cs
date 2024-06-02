@@ -1,4 +1,5 @@
 using DevFreela.Application.Commands.Project.CreateProject;
+using DevFreela.Application.Consumers;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.Validators;
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMessageBusService, MessageBusService>();
+builder.Services.AddHostedService<PaymentApprovedConsumer>();
 
 // Busca todas as classes neesse assembly que o mediator especifica para o padrão CQRS,
 // Ou seja, busca todas as classes que implementam o IRquest<> e assicia ao IRequestHandler<>

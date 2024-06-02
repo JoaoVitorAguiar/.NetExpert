@@ -18,7 +18,7 @@ public class PaymentService : IPaymentService
     public async void ProcessPayment(PaymentInfoDTO patmentInfoDTO)
     {
 
-        var paymentInfoJson = JsonSerializer.Serialize(patmentInfoDTO);     
+        var paymentInfoJson = JsonSerializer.Serialize(patmentInfoDTO);
         var paymentInfoBytes = Encoding.UTF8.GetBytes(paymentInfoJson);
 
         _messageBusService.Publish(QUEUE_NAME, paymentInfoBytes);

@@ -1,5 +1,4 @@
 ﻿using DevFreela.Core.Services;
-using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
 namespace DevFreela.Infrastructure.Messagebus;
@@ -27,7 +26,7 @@ public class MessageBusService : IMessageBusService
                     durable: false,
                     exclusive: false,
                     autoDelete: false,
-                    arguments: null 
+                    arguments: null
                 );
 
                 // Publicar a menssagem

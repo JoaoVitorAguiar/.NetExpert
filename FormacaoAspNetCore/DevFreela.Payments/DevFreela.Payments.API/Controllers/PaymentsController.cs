@@ -16,11 +16,11 @@ public class PaymentsController : ControllerBase
     }
 
 
-    [HttpPost]  
+    [HttpPost]
     public async Task<IActionResult> Post([FromBody] PaymentInfoInputModel paymentInfoInputModel)
     {
         var result = await _paymentService.Process(paymentInfoInputModel);
-        if(!result)
+        if (!result)
         {
             return BadRequest();
         }

@@ -19,7 +19,7 @@ public class ProcessPaymentConsumer : BackgroundService
 
     public ProcessPaymentConsumer(IServiceProvider serviceProvider)
     {
-       _serviceProvider = serviceProvider;
+        _serviceProvider = serviceProvider;
         var factory = new ConnectionFactory
         {
             HostName = "localhost",
@@ -71,7 +71,7 @@ public class ProcessPaymentConsumer : BackgroundService
 
     private void ProcessPayment(PaymentInfoInputModel paymentInfo)
     {
-        using(var scop = _serviceProvider.CreateScope()) 
+        using (var scop = _serviceProvider.CreateScope())
         {
             var paymentService = scop.ServiceProvider.GetRequiredService<IPaymentService>();
             paymentService.Process(paymentInfo);

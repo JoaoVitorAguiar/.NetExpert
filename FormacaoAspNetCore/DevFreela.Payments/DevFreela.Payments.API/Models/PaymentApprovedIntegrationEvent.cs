@@ -2,7 +2,7 @@
 
 public class PaymentApprovedIntegrationEvent
 {
-    public int IdProject { get;  set; }
+    public int IdProject { get; set; }
 
     public PaymentApprovedIntegrationEvent(int idProject)
     {
